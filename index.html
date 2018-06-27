@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Monter slayer</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <div class="monTer">
+                    <h3>Monter the Slayer</h3>
+                <div class="monTer__wrap">
+                    
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <span>{{playerHealth}}</span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="{width: playerHealth +'%'}" :aria-valuenow="playerHealth" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <span>{{monsterHealth}}</span>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped bg-success" role="progressbar" :style="{width: monsterHealth +'%'}" :aria-valuenow="monsterHealth" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="monTer__control text-md-center" v-if="!gameIsRunning">
+                    <button class="btn btn-lg btn-outline-primary" @click="startGame">Start new game</button>
+                </div>
+                <div class="monTer__control text-md-center" v-else>
+                    <button class="btn btn-lg btn-outline-danger" @click="attack">ATTACK</button>
+                    <button class="btn btn-lg btn-outline-warning" @click="specialAttack">SPECIAL ATTACK</button>
+                    <button class="btn btn-lg btn-outline-success" @click="heal">HEAL</button>
+                    <button class="btn btn-lg btn-outline-info" @click="giveUp">GIVE UP</button>
+                </div>
+                <div class="monTer__notify" v-if="turns.length > 0">
+                    <div class="alert " role="alert" v-for="turn in turns" :class="{'alert-success' : turn.isPlayer, 'alert-warning': !turn.isPlayer}">
+                       {{turn.text}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
